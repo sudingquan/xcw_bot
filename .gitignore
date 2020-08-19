@@ -3,13 +3,23 @@ config.py
 config.json
 hoshino/config/
 local_coolq_config/
+subs.json
+latest_data.json
+tasks.json
+jobs.json
+rsdata.json
+rsplayer.json
+setu_config.json
+clanrank.json
 
 # Database
 db.json
 database.json
 *.db
+*.db3
 *.sqlite
 res/
+res1/
 img/
 imgs/
 image/
