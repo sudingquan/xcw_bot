@@ -4,7 +4,7 @@
 
 ## 安装
 
-将整个memegenerator文件夹放入hoshino/modules中，并在config/__bot__.py里的模块列表中加入memegenerator。
+将整个memegenerator文件夹放入hoshino/modules中，并在```config/__bot__.py```里的模块列表中加入memegenerator。
 
 ## 使用
 
@@ -50,4 +50,4 @@
 
 ## 开源
 
-本插件以GPL-v3协议开源。[项目地址](https://github.com/iamwyh2019/customize-HoshinoBot/tree/master/hoshino/modules/memegenerator)
+本插件以GPL-v3协议开源。[项目地址](https://github.com/iamwyh2019/memegenerator)
