@@ -10,9 +10,9 @@ import base64
 import pandas as pd
 import numpy as np
 import datetime
+import math
 
-_time_limit = 10
-#_time_limit = 30*60
+_time_limit = 3*60
 _lmt = FreqLimiter(_time_limit)
 
 b_constellations = ["摩羯","水瓶","双鱼","白羊","金牛","双子","巨蟹","狮子","处女","天秤","天蝎","射手"] #国服的（预测）
@@ -24,7 +24,11 @@ REPORT_RESIGN = 0
 REPORT_NORMAL = 1
 REPORT_UNDECLARED = -1
 
-sv = Service('clanbattle-retire', visible=True)
+sv_help = '''
+[离职报告/会战报告] 生成一张离职报告/会战报告
+'''.strip()
+
+sv = Service('clanbattle-retire', help_=sv_help, bundle='离职报告')
 
 @sv.on_fullmatch('离职')
 async def send_resign_report(bot, event):
@@ -46,20 +50,23 @@ async def send_report(bot, event, type=REPORT_UNDECLARED):
     gid = event['group_id']
 
     if not _lmt.check(uid):
-        await bot.send(event, f'每{int(_time_limit/60)}分钟仅能生成一次报告', at_sender=True)
+        await bot.send(event, f'每{math.ceil(_time_limit/60)}分钟仅能生成一次报告', at_sender=True)
         return
     _lmt.start_cd(uid)
 
     now = datetime.datetime.now()
     year = now.year
-    month = now.month-1
+    month = now.month
+    day = now.day
+    if day<20:
+        month -= 1
     if month==0:
         year -= 1
         month = 12
     constellation = b_constellations[month-1]
 
     try:
-        clanname, challenges = get_person(gid,uid,month)
+        clanname, challenges = get_person(gid,uid,year,month)
     except Exception as e:
         await bot.send(event, f"出现错误: {str(e)}\n请联系开发组调教。")
         return
