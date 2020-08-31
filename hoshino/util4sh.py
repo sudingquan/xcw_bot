@@ -9,6 +9,7 @@ import random
 import aiohttp
 import filetype
 import os
+import hoshino
 
 logger = new_logger('shebot')
 
@@ -40,7 +41,8 @@ def get_str_md5(text: str) -> str:
     return md5_str
 
 class Res:
-    res_dir = path.join(path.dirname(__file__), 'modules','shebot', 'res')
+    #res_dir = path.join(path.dirname(__file__), 'modules','shebot', 'res')
+    res_dir = os.path.expanduser(hoshino.config.RES_DIR)
     image_dir = path.join(res_dir, 'image')
     record_dir = path.join(res_dir, 'record')
     @classmethod
