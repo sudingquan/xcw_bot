@@ -1,4 +1,5 @@
 import importlib
+import random
 from io import BytesIO
 
 import pygtrie
@@ -145,11 +146,14 @@ class Chara:
     @property
     def icon(self):
         star = '3' if 1 <= self.star <= 5 else '6'
+        #star = random.choice([0, 1, 3, 6]) 
         res = R.img(f'priconne/unit/icon_unit_{self.id}{star}1.png')
         if not res.exist:
             res = R.img(f'priconne/unit/icon_unit_{self.id}31.png')
+            #res = R.img(f'priconne/unit/icon_unit_{self.id}61.png')
         if not res.exist:
             res = R.img(f'priconne/unit/icon_unit_{self.id}11.png')
+            #res = R.img(f'priconne/unit/icon_unit_{self.id}31.png')
         if not res.exist:   # FIXME: 不方便改成异步请求
             download_chara_icon(self.id, 6)
             download_chara_icon(self.id, 3)
