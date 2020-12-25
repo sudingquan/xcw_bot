@@ -1,0 +1,22 @@
+from hoshino import Service
+from nonebot import *
+from nonebot import MessageSegment as ms
+from hoshino.typing import CQEvent
+
+
+players = []
+stage = ''
+
+sv = Service('pass')
+
+@sv.on_rex(r'来[局把盘]炸金花')
+async def start(bot, event: CQEvent):
+    uid = event.user_id
+    players.append(uid)
+    msg = f'{ms.at(uid)}发起了一场紧张刺激的炸金花，输入in加入游戏，输入out退出游戏，输入go开始游戏'
+    msg += f'\n已加入的玩家：\n{ms.at(uid)}'
+    await bot.send(event, msg)
+
+@sv.on_command('in')
+async def join_game(session: CommandSession):
+
